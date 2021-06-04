@@ -20,7 +20,7 @@ class Set {
   Set() = default;  // Пустое множество
   // В STL е
   // Инициализация из std::set
-  Set(std::set<T> set) : tree(set) {}
+  explicit Set(std::set<T> set) : tree(set) {}
   // И из списка значений при инициализации, например: Set<int> s {1,3}
   Set(initializer_list<T> list) : tree(list) {}
   // Инициализация из строки
@@ -44,11 +44,11 @@ class Set {
     return res;
   }
   // where фильтрует значения из списка l с помощью функции-фильтра h
-  Set<T> *where(bool h(T)) {
-    auto *res = new Set<T>;
+  Set<T> where(bool h(T)) {
+    Set<T> res;
     for (T x : tree)
       if (h(x)) {
-        res->insert(x);
+        res.insert(x);
       }
     return res;
   }
@@ -120,7 +120,9 @@ class Set {
     for (T x : elements) ss << x << " ";
     return trim_copy(ss.str());
   }
-
+  void printAsTree() {
+    tree.printAsTree();
+  }
   struct Iterator {
     using iterator_category = forward_iterator_tag;
     using difference_type = ptrdiff_t;
