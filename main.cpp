@@ -358,7 +358,19 @@ template <class T>
 void set_map_reduce_where(Set<T> &s) {
   wcout << L"Множество - применение функций map, where, reduce" << endl;
   wcout << toWS(s.toString())<<endl;
-
+  if (s.size() == 0) {  // Если множество пустое
+    wcout << L"Пустое множество. Введите значения." << endl;
+    wcout << L"Введите количество элементов: ";
+    int N;
+    wcin >> N;
+    for (int i = 1; i <= N; i++) {
+      T element;
+      wcout << L"Введите элемент номер " << i << ": ";
+      wcin >> element;
+      s.insert(element);
+    }
+    wcout << toWS(s.toString()) << endl;
+  }
   wcout << L"Применяем операцию map (построить новое множество поэлементным преобразованием)" << endl;
   Set<T> mapRes = s.map(map_function);
   wcout << toWS(mapRes.toString())<< endl;  // Печатаем множество
